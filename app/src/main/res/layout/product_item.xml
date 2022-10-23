@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.ptc.challenge.data.model.pojo.ProductData" />
+
+        <variable
+            name="currency"
+            type="com.ptc.challenge.data.model.pojo.Currency" />
+
+        <variable
+            name="listener"
+            type="com.mahmoud.zaher.geideatask.presentation.adapter.ItemClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:elevation="@dimen/m_size"
+        android:onClick="@{listener::onItemClickListener}"
+        app:cardCornerRadius="@dimen/m_size">
+
+        <TextView
+            android:id="@+id/uuidTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(product.sku)}"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_8sdp">
+
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginTop="@dimen/s_size"
+                android:contentDescription="@string/product_image"
+                android:imageUrl="@{product.image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@android:drawable/ic_media_play" />
+
+
+            <TextView
+                android:id="@+id/brandNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:text="@{product.brand}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productImage"
+                tools:text="hawawei" />
+
+            <TextView
+                android:id="@+id/productNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{product.name}"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brandNameText"
+                tools:text="Honor" />
+
+            <RatingBar
+                android:id="@+id/productRatingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:rating="@{Float.valueOf(product.ratingAverage)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/productNameText"
+                tools:rating="5" />
+
+            <TextView
+                android:id="@+id/tvRatingAvg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/m_size"
+                android:textColor="@color/purple_100"
+                android:text="@{'(' + String.valueOf(product.ratingAverage) + ')'}"
+                app:layout_constraintBottom_toBottomOf="@+id/productRatingBar"
+                app:layout_constraintStart_toEndOf="@+id/productRatingBar"
+                app:layout_constraintTop_toTopOf="@+id/productRatingBar"
+                tools:text="(5)" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/s_size"
+                android:text="@string/stars"
+                android:textColor="@color/purple_100"
+                app:layout_constraintBottom_toBottomOf="@+id/tvRatingAvg"
+                app:layout_constraintStart_toEndOf="@+id/tvRatingAvg"
+                app:layout_constraintTop_toTopOf="@+id/tvRatingAvg" />
+
+            <TextView
+                android:id="@+id/textViewSpecialPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="@{String.valueOf(product.specialPrice)}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/productRatingBar"
+                app:layout_constraintTop_toBottomOf="@+id/productRatingBar"
+                tools:text="20000" />
+
+            <TextView
+                android:id="@+id/textViewCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{currency.currencySymbol}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/textViewPrice"
+                app:layout_constraintStart_toEndOf="@+id/textViewSpecialPrice"
+                app:layout_constraintTop_toTopOf="@+id/textViewSpecialPrice"
+                tools:text="$" />
+
+            <TextView
+                android:id="@+id/textViewPrice"
+                is_strike="@{true}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="@{String.valueOf(product.price)}"
+                app:layout_constraintStart_toStartOf="@+id/textViewSpecialPrice"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSpecialPrice"
+                tools:text="25000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{currency.currencySymbol}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewPrice"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSpecialPrice"
+                tools:text="$" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/discount_shape"
+                android:padding="@dimen/_4sdp"
+                android:text="@{'-'+String.valueOf(product.maxSavingPercentage) +'%'}"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewSpecialPrice"
+                app:layout_constraintEnd_toEndOf="@+id/productNameText"
+                app:layout_constraintTop_toTopOf="@+id/textViewPrice"
+                tools:text="-45 %" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
